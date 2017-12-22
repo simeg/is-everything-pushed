@@ -49,11 +49,16 @@ readonly REPO_PATHS="$(echo "$REPOS_STR" | tr ";" "\\n")"
 
 for folder_path in $REPO_PATHS
 do
+  if [ ! -d "$folder_path" ]; then
+    echo "Can't pushd to $folder_path, exiting";
+    exit
+  fi
+
   # Don't output pushd results
   pushd "$folder_path" > /dev/null;
   if is_git_repo > /dev/null; then
     if (git status | grep -c "Your branch is ahead") > /dev/null; then
-      echo "Unpushed changes in" "$folder_path";
+      echo "Unpushed changes in\t$folder_path";
     fi
   fi
 done
