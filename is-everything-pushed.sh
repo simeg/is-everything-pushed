@@ -21,6 +21,12 @@
 
 FOLDER=$1
 
+if [ -z $FOLDER ]; then
+  echo "No folder provided, run it like this:";
+  echo "  /bin/bash is-everything-pushed.sh [FOLDER]";
+  exit
+fi
+
 if [ ! -d $FOLDER ]; then
   echo "Cannot find $FOLDER, exiting"
   exit
