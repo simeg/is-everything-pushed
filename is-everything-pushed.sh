@@ -21,8 +21,8 @@
 
 FOLDER=$1
 
-if [ ! -d $1 ]; then
-  echo "Cannot find $1, exiting"
+if [ ! -d $FOLDER ]; then
+  echo "Cannot find $FOLDER, exiting"
   exit
 fi
 
@@ -38,7 +38,7 @@ function is_git_repo {
   return 1;
 }
 
-readonly REPOS_STR="$(ls -d $1/*/)"
+readonly REPOS_STR="$(ls -d $FOLDER/*/)"
 readonly REPO_PATHS="$(echo $REPOS_STR | tr ";" "\n")"
 
 for folder_path in $REPO_PATHS
