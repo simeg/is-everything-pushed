@@ -16,3 +16,11 @@ parent-folder.
 ├── repo-3
 └── ...
 ```
+
+## Quick Usage
+Clone the repo to your `/tmp` folder and run the script. Just make sure to
+replace `[REPO FOLDER]` with an absolute path to your repo folder.
+```sh
+$ git clone git@github.com:simeg/is-everything-pushed.git /tmp/is-everything-pushed && /bin/bash /tmp/is-everything-pushed/is-everything-pushed.sh [REPO FOLDER]
+```
+
