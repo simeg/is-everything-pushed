@@ -19,16 +19,16 @@
 #   sh is-everything-pushed.sh /Users/simon/repos
 #
 
-FOLDER=$1
+readonly FOLDER=$1
 
 if [ -z "$FOLDER" ]; then
   echo "No folder provided, run it like this:";
-  echo "  /bin/bash is-everything-pushed.sh [FOLDER]";
+  echo "  /bin/bash ./is-everything-pushed.sh [FOLDER]";
   exit
 fi
 
 if [ ! -d "$FOLDER" ]; then
-  echo "Cannot find $FOLDER, exiting"
+  printf "Cannot find [%s]\\n" "$FOLDER"
   exit
 fi
 
@@ -47,19 +47,30 @@ function is_git_repo {
 readonly REPOS_STR="$(ls -d "$FOLDER"/*/)"
 readonly REPO_PATHS="$(echo "$REPOS_STR" | tr ";" "\\n")"
 
+unpushed_changes=false
+
 for folder_path in $REPO_PATHS
 do
+  # Make sure folder exist
   if [ ! -d "$folder_path" ]; then
-    echo "Can't pushd to $folder_path, exiting";
-    exit
+    printf "Can't pushd to [%s]\\n" "$folder_path";
+    exit;
   fi
 
   # Don't output pushd results
-  pushd "$folder_path" > /dev/null;
+  # If pushd fails, exit
+  pushd "$folder_path" > /dev/null ||
+    (printf "Can't pushd to [%s]\\n" "$folder_path" && exit);
+
   if is_git_repo > /dev/null; then
     if (git status | grep -c "Your branch is ahead") > /dev/null; then
-      echo "Unpushed changes in\t$folder_path";
+      unpushed_changes=true
+      printf "🙈  Unpushed changes in\\t%s\\n" "$folder_path";
     fi
   fi
 done
+
+if ! $unpushed_changes; then
+  echo "No unpushed changes! All is good 👌";
+fi
 
