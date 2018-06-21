@@ -30,7 +30,7 @@ No unpushed changes! All is good 👌
 ```
 
 ## Quick Usage
-Clone the repo to your `/tmp` folder and run the script. Just make sure to
+`curl` the script and execute it. Just make sure to
 replace `[REPO FOLDER]` with an absolute path to your repo folder.
 ```sh
 $ /bin/bash <(curl -s https://raw.githubusercontent.com/simeg/is-everything-pushed/master/is-everything-pushed.sh) [REPO FOLDER]
