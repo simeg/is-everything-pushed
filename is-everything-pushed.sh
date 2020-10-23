@@ -16,40 +16,38 @@
 
 # Example:
 #
-#   sh is-everything-pushed.sh /Users/simon/repos
+#   /bin/bash is-everything-pushed.sh /Users/simon/repos
 #
 
-readonly FOLDER=$1
+readonly folder=$1
 
-if [ -z "$FOLDER" ]; then
+if [ -z "$folder" ]; then
   echo "No folder provided, run it like this:";
-  echo "  /bin/bash ./is-everything-pushed.sh [FOLDER]";
+  echo "  /bin/bash is-everything-pushed.sh [FOLDER]";
   exit
 fi
 
-if [ ! -d "$FOLDER" ]; then
-  printf "Cannot find [%s]\\n" "$FOLDER"
+if [ ! -d "$folder" ]; then
+  printf "Cannot find [%s]\\n" "$folder"
   exit
 fi
 
 function is_git_repo {
   if [ -d .git ]; then
     return 0;
-  else
-    if git rev-parse --git-dir 2> /dev/null; then
-      return 0;
-    fi
+  elif git rev-parse --git-dir 2> /dev/null; then
+    return 0;
   fi;
 
   return 1;
 }
 
-readonly REPOS_STR="$(ls -d "$FOLDER"/*/)"
-readonly REPO_PATHS="$(echo "$REPOS_STR" | tr ";" "\\n")"
+readonly repos_str="$(ls -d "$folder"/*/)"
+readonly repo_paths="$(echo "$repos_str" | tr ";" "\\n")"
 
 unpushed_changes=false
 
-for folder_path in $REPO_PATHS
+for folder_path in $repo_paths
 do
   # Make sure folder exist
   if [ ! -d "$folder_path" ]; then
