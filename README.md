@@ -1,4 +1,4 @@
-# `is-everything-pushed` [![Build Status](https://travis-ci.com/simeg/is-everything-pushed.svg?branch=master)](https://travis-ci.com/simeg/is-everything-pushed)
+# `is-everything-pushed` ![CI](https://github.com/simeg/is-everything-pushed/workflows/CI/badge.svg)
 A bash script to make sure everything in your Git repository folder is pushed.
 
 # Usage
